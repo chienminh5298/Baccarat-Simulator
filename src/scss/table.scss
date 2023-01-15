@@ -82,14 +82,24 @@
 						top: 50%;
 						left: 50%;
 						padding: 5% 1vw;
-						background-color: red;
 						z-index: 1;
 						text-align: center;
+						display: none;
+						border: yellow solid 3px;
 						span {
 							color: white;
 							font-weight: bold;
 							letter-spacing: 2px;
 							font-size: 1vw;
+						}
+						&.tie {
+							background-color: $table-color;
+						}
+						&.playerWin {
+							background-color: $player-color;
+						}
+						&.bankerWin {
+							background-color: $banker-color;
 						}
 					}
 					.card_side {
@@ -108,26 +118,69 @@
 							width: 100%;
 							display: flex;
 							justify-content: center;
-							.card {
-								width: 20%;
-								height: 2.5vw;
-								border: white solid 1px;
-								margin: 10% 2.5px;
+							position: relative;
+							margin-top: 0.5vw;
+							margin-bottom: 1vw;
+							.location_card {
+								width: $card-width;
+								height: $card-height;
+								padding: 0 0.2vw;
 								&.hit_card {
 									transform: rotate(90deg);
-									margin-left: 0.6vw !important;
+									margin-left: 5px;
 								}
 							}
+							@keyframes cardRotate {
+								0% {
+									transform: rotate(0deg) translate(-50%, 0);
+								}
+								100% {
+									transform: rotate(360deg);
+								}
+							}
+							@keyframes hitcardRotate {
+								0% {
+									transform: rotate(0deg) translate(-50%, 0);
+								}
+								100% {
+									transform: rotate(270deg);
+								}
+							}
+						}
+					}
+					.card {
+						border-radius: 5px;
+						overflow: hidden;
+						img {
+							width: 100%;
 						}
 					}
 					#card_player_side {
 						.side {
 							color: $player-color;
 						}
+						.card {
+							transform: translate(-50%, 0);
+							position: absolute;
+							top: 270%;
+							left: 110%;
+							width: $card-width;
+							height: $card-height;
+							background-color: blue;
+						}
 					}
 					#card_banker_side {
 						.side {
 							color: $banker-color;
+						}
+						.card {
+							transform: translate(-50%, 0);
+							position: absolute;
+							top: 270%;
+							left: -15%;
+							width: $card-width;
+							height: $card-height;
+							background-color: red;
 						}
 					}
 				}
