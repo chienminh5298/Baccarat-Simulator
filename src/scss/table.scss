@@ -1,0 +1,280 @@
+@import './App.scss';
+
+#table_container {
+	width: $table-width;
+	margin: 1rem auto;
+	span {
+		font-family: Verdana, Geneva, Tahoma, sans-serif;
+	}
+	#player_slot_container {
+		position: relative;
+		width: calc($table-width);
+		height: calc($table-width / 3);
+		#outner_trim {
+			position: absolute;
+			width: calc($table-width * 2 / 3);
+			height: calc($table-width * 2 / 3);
+			transform: translate(-50%, -50%);
+			left: 50%;
+			top: 0%;
+			border-radius: 50%;
+			border: $table-color-dark 3.5vw solid;
+			pointer-events: none;
+			&::before {
+				content: '';
+				position: absolute;
+				width: 53.3333333333vw;
+				height: 26.6666666667vw;
+				transform: translate(-50%, 0%);
+				left: 50%;
+				background-color: $table-color-dark;
+				top: 0%;
+				border-top-left-radius: 50%;
+				border-top-right-radius: 50%;
+			}
+		}
+		#inner_trim {
+			position: absolute;
+			width: calc($table-width / 3);
+			height: calc($table-width / 3);
+			transform: translate(-50%, -50%);
+			left: 50%;
+			top: 0%;
+			border-radius: 50%;
+			// border: white dashed 2px;
+			background-color: $table-color-dark;
+			display: flex;
+			justify-content: center;
+			align-items: flex-end;
+			#show_time {
+				position: absolute;
+				transform: translate(-50%, -50%);
+				left: 50%;
+				top: 50%;
+				width: 100%;
+				height: 100%;
+				background-color: rgba(255, 255, 255, 0.397);
+				border-radius: 50%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				span {
+					margin-top: 2vw;
+					font-size: 5vw;
+					color: white;
+				}
+			}
+			#card_table_container {
+				width: calc($table-width / 3);
+				height: calc($table-width / 6);
+				padding: 0 2vw;
+				#card_side_container {
+					width: 100%;
+					height: 100%;
+					display: flex;
+					justify-content: space-around;
+					position: relative;
+					#result {
+						position: absolute;
+						transform: translate(-50%, -50%);
+						top: 50%;
+						left: 50%;
+						padding: 5% 1vw;
+						background-color: red;
+						z-index: 1;
+						text-align: center;
+						span {
+							color: white;
+							font-weight: bold;
+							letter-spacing: 2px;
+							font-size: 1vw;
+						}
+					}
+					.card_side {
+						width: 40%;
+						text-align: center;
+						.side {
+							display: block;
+							font-size: 2.2vw;
+						}
+						.score {
+							margin-top: 6%;
+							font-size: 2vw;
+							color: white;
+						}
+						.card_container {
+							width: 100%;
+							display: flex;
+							justify-content: center;
+							.card {
+								width: 20%;
+								height: 2.5vw;
+								border: white solid 1px;
+								margin: 10% 2.5px;
+								&.hit_card {
+									transform: rotate(90deg);
+									margin-left: 0.6vw !important;
+								}
+							}
+						}
+					}
+					#card_player_side {
+						.side {
+							color: $player-color;
+						}
+					}
+					#card_banker_side {
+						.side {
+							color: $banker-color;
+						}
+					}
+				}
+			}
+		}
+		#choose_slot_container {
+			position: relative;
+			.choose_slot {
+				height: calc($table-width / 2.35);
+				position: absolute;
+				transform-origin: top;
+				left: 50%;
+				top: 0%;
+				&:nth-child(1) {
+					transform: translate(-50%, 0) rotate(72deg);
+				}
+				&:nth-child(2) {
+					transform: translate(-50%, 0) rotate(36deg);
+				}
+				&:nth-child(3) {
+					transform: translate(-50%, 0) rotate(0deg);
+				}
+				&:nth-child(4) {
+					transform: translate(-50%, 0) rotate(-36deg);
+				}
+				&:nth-child(5) {
+					transform: translate(-50%, 0) rotate(-72deg);
+				}
+				div {
+					position: absolute;
+					bottom: 0;
+					transform: translate(-50%, 0);
+					border-radius: 50%;
+					cursor: pointer;
+					overflow: hidden;
+					&:active i {
+						transform: scale(1.1);
+					}
+					i {
+						font-size: 2vw;
+						color: white;
+						width: 2.2vw;
+						height: 2.2vw;
+						background-color: rgba(255, 255, 255, 0.493);
+						display: flex;
+						justify-content: center;
+						align-items: center;
+					}
+				}
+			}
+		}
+		.player_slot {
+			position: absolute;
+			width: calc($table-width/4.66);
+			height: calc($table-width / 3);
+			background-color: $table-color;
+			clip-path: polygon(0 100%, 100% 100%, 50% 0);
+			transform-origin: top;
+			left: 50%;
+			top: 0%;
+
+			&.active {
+				background-color: #018801;
+			}
+			&:nth-child(1) {
+				transform: translate(-50%, 0) rotate(72deg);
+			}
+			&:nth-child(2) {
+				transform: translate(-50%, 0) rotate(36deg);
+			}
+			&:nth-child(3) {
+				transform: translate(-50%, 0) rotate(0deg);
+			}
+			&:nth-child(4) {
+				transform: translate(-50%, 0) rotate(-36deg);
+			}
+			&:nth-child(5) {
+				transform: translate(-50%, 0) rotate(-72deg);
+			}
+			.play_container {
+				position: absolute;
+				transform: translate(-50%, 0);
+				height: 50%;
+				width: 100%;
+				bottom: 0;
+				left: 50%;
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: center;
+				.onActive:active {
+					transform: translate(2px, 2px);
+				}
+				.play_bonus {
+					height: 25%;
+					width: 57%;
+					display: flex;
+					justify-content: space-around;
+					align-items: center;
+					padding-bottom: 5px;
+					border-radius: 30%;
+					border-bottom: rgba(255, 255, 255, 0.096) solid 1px;
+					span {
+						font-size: 0.89vw;
+						color: white;
+					}
+					.pair {
+						border-radius: 50%;
+						width: 2.5vw;
+						height: 2.5vw;
+						display: flex;
+						justify-content: space-around;
+						align-items: center;
+						cursor: pointer;
+						&.player_pair {
+							background-color: $player-color;
+						}
+						&.banker_pair {
+							background-color: $banker-color;
+						}
+					}
+					.tie {
+						padding: 0.5vw 0.6vw;
+						border: rgba(255, 255, 255, 0.562) solid 1px;
+						border-radius: 5px;
+						cursor: pointer;
+					}
+				}
+				.play_banker,
+				.play_player {
+					height: 35%;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					cursor: pointer;
+					span {
+						font-size: 1.2vw;
+					}
+				}
+				.play_banker {
+					border-radius: 100%;
+					width: 85%;
+					border-bottom: rgba(255, 255, 255, 0.096) solid 1px;
+					color: $banker-color;
+				}
+				.play_player {
+					width: 100%;
+					color: $player-color;
+				}
+			}
+		}
+	}
+}

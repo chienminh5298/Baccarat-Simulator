@@ -1,0 +1,80 @@
+@import './App.scss';
+
+#dashboard_container {
+	height: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: center;
+	.dashboard_item {
+		text-align: center;
+		color: white;
+		font-family: monospace;
+		font-size: 1.5vw;
+		padding: 15px 30px;
+		background: linear-gradient(145deg, $game-background-light, $game-background-dark);
+		border-radius: 15px;
+		box-shadow: 5px 5px 5px $game-background-dark, -5px -5px 5px $game-background-light;
+		@include tablet {
+			width: 33.33%;
+			margin-top: 15px;
+		}
+	}
+	#chips {
+		margin-top: 5px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		.chip {
+			cursor: pointer;
+			margin: 5px;
+			width: 3.5vw;
+			height: 3.5vw;
+			border: white solid 1px;
+			justify-content: center;
+			align-items: center;
+			display: flex;
+			border-radius: 50%;
+			position: relative;
+			&.active {
+				width: 5.5vw;
+				height: 5.5vw;
+				border: white solid 5px;
+				img {
+					animation: chipRotate 10s linear infinite;
+					@keyframes chipRotate {
+						100% {
+							transform: rotate(360deg);
+						}
+					}
+				}
+				span {
+					font-size: 1.5vw;
+				}
+			}
+			img {
+				width: 100%;
+			}
+			span {
+				position: absolute;
+				font-size: 0.7vw;
+			}
+		}
+	}
+	#history_container {
+		width: 30%;
+		min-height: 20vh;
+		display: flex;
+		flex-wrap: wrap;
+		.history_number {
+			font-size: 1vw;
+			margin: 1px;
+			width: 2vw;
+			height: 2vw;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			border: black solid 1px;
+		}
+	}
+}
