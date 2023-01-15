@@ -44,7 +44,7 @@ body {
 	box-sizing: border-box;
 	position: relative;
 	.d-none {
-		display: none;
+		display: none !important;
 	}
 	#dashboard {
 		@include tablet {
