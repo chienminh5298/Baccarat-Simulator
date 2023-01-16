@@ -13,17 +13,16 @@ const Table = ({ currentBet = 5 }) => {
 	var [betArr, setBetArr] = useState(new Array(25).fill(0));
 	var [cardArr, setCardArr] = useState(generateCard());
 	var [result, setResult] = useState(0);
-	function flop(i, animation) {
+	function flop(i, animation, extratime = 0) {
 		setTimeout(() => {
 			var location = $(`#location_card_${i}`).position();
 			$(`#card_${i}`).css({
-				transform: 'none',
 				left: animation === 'cardRotate' ? location.left : location.left + 5,
 				top: location.top,
 				transition: '2s',
 				animation: `${animation} 1s linear forwards`,
 			});
-		}, 500 * i);
+		}, 500 * i + extratime);
 	}
 	var renderResult = () => {
 		if (result === 0) {
@@ -50,21 +49,56 @@ const Table = ({ currentBet = 5 }) => {
 		var interval = setInterval(() => {
 			if (betTime === 0) {
 				clearInterval(interval);
-				// setIsBetTime(false);
+				setIsBetTime(false);
 				$('#show_time').toggleClass('d-none');
 				for (var i = 1; i <= 4; i++) {
 					flop(i, 'cardRotate');
 				}
 				/** prevent cheating */
-				$('#card_1').html(`<img src='./image/card/${cardArr[0]}.png' alt='card' />`);
-				$('#card_2').html(`<img src='./image/card/${cardArr[1]}.png' alt='card' />`);
-				$('#card_3').html(`<img src='./image/card/${cardArr[2]}.png' alt='card' />`);
-				$('#card_4').html(`<img src='./image/card/${cardArr[3]}.png' alt='card' />`);
+				$('#card_1').html(`<div class='frontcard'>
+					<img src='./image/card/${cardArr[0]}.png' alt='card' />
+				</div>
+				<div class='backcard'>
+					<img src=./image/card/backcard.png alt='backcard' />
+				</div>`);
+				$('#card_2').html(`<div class='frontcard'>
+				<img src='./image/card/${cardArr[1]}.png' alt='card' />
+			</div>
+			<div class='backcard'>
+				<img src=./image/card/backcard.png alt='backcard' />
+			</div>`);
+				$('#card_3').html(`<div class='frontcard'>
+				<img src='./image/card/${cardArr[2]}.png' alt='card' />
+			</div>
+			<div class='backcard'>
+				<img src=./image/card/backcard.png alt='backcard' />
+			</div>`);
+				$('#card_4').html(`<div class='frontcard'>
+				<img src='./image/card/${cardArr[3]}.png' alt='card' />
+			</div>
+			<div class='backcard'>
+				<img src=./image/card/backcard.png alt='backcard' />
+			</div>`);
 				if ((checkValue(cardArr[0]) + checkValue(cardArr[2])) % 10 >= 6) {
-					$('#card_6').html(`<img src='./image/card/${cardArr[4]}.png' alt='card' />`);
+					$('#card_6').html(`<div class='frontcard'>
+					<img src='./image/card/${cardArr[4]}.png' alt='card' />
+				</div>
+				<div class='backcard'>
+					<img src=./image/card/backcard.png alt='backcard' />
+				</div>`);
 				} else {
-					$('#card_5').html(`<img src='./image/card/${cardArr[4]}.png' alt='card' />`);
-					$('#card_6').html(`<img src='./image/card/${cardArr[5]}.png' alt='card' />`);
+					$('#card_5').html(`<div class='frontcard'>
+					<img src='./image/card/${cardArr[4]}.png' alt='card' />
+				</div>
+				<div class='backcard'>
+					<img src=./image/card/backcard.png alt='backcard' />
+				</div>`);
+					$('#card_6').html(`<div class='frontcard'>
+					<img src='./image/card/${cardArr[5]}.png' alt='card' />
+				</div>
+				<div class='backcard'>
+					<img src=./image/card/backcard.png alt='backcard' />
+				</div>`);
 				}
 
 				var player = (checkValue(cardArr[0]) + checkValue(cardArr[2])) % 10;
@@ -73,18 +107,18 @@ const Table = ({ currentBet = 5 }) => {
 				const banker_draw = player >= 6 ? checkValue(cardArr[4]) : checkValue(cardArr[5]);
 
 				if (banker < 8 && player < 8) {
-					if (player < 6) flop(5, 'hitcardRotate');
-					if (banker === 0 || banker === 1 || banker === 2 || (banker === 3 && player_draw !== 8)) flop(6, 'hitcardRotate');
+					if (player < 6) flop(5, 'hitcardRotate', 2000);
+					if (banker === 0 || banker === 1 || banker === 2 || (banker === 3 && player_draw !== 8)) flop(6, 'hitcardRotate', 3000);
 					else if (banker === 4) {
-						if (player_draw === 2 || player_draw === 3 || player_draw === 4 || player_draw === 5 || player_draw === 6 || player_draw === 7) flop(6, 'hitcardRotate');
+						if (player_draw === 2 || player_draw === 3 || player_draw === 4 || player_draw === 5 || player_draw === 6 || player_draw === 7) flop(6, 'hitcardRotate', 3000);
 					} else if (banker === 5) {
-						if (player_draw === 4 || player_draw === 5 || player_draw === 6 || player_draw === 7) flop(6, 'hitcardRotate');
+						if (player_draw === 4 || player_draw === 5 || player_draw === 6 || player_draw === 7) flop(6, 'hitcardRotate', 3000);
 					} else if (banker === 6) {
-						if (player_draw === 6 || player_draw === 7) flop(6, 'hitcardRotate');
+						if (player_draw === 6 || player_draw === 7) flop(6, 'hitcardRotate', 3000);
 					}
 					setTimeout(() => {
 						$('#result').css('display', 'block');
-					}, 5500);
+					}, 7500);
 				} else {
 					setTimeout(() => {
 						$('#result').css('display', 'block');
@@ -95,7 +129,12 @@ const Table = ({ currentBet = 5 }) => {
 
 				cardArr.splice(0, 6);
 				setCardArr(cardArr);
-				setTimeout(() => {}, 1000);
+				setTimeout(() => {
+					$('#result').css('display', 'none');
+					$('.card').html('');
+					setBetTime(5);
+					$('#show_time').toggleClass('d-none');
+				}, 15000);
 			} else {
 				setBetTime(betTime - 1);
 			}
@@ -429,12 +468,8 @@ const Table = ({ currentBet = 5 }) => {
 								<span className='side'>PLAYER</span>
 								<div className='card_container'>
 									<div className='card' id='card_1'></div>
-									<div className='card' id='card_3'>
-										<img src={`./image/card/${cardArr[2]}.png`} alt='card' />
-									</div>
-									<div className='card' id='card_5'>
-										<img src={`./image/card/${cardArr[0]}.png`} alt='card' />
-									</div>
+									<div className='card' id='card_3'></div>
+									<div className='card' id='card_5'></div>
 									<div className='spawn_card location_card' id='location_card_1'></div>
 									<div className='spawn_card location_card' id='location_card_3'></div>
 									<div className='hit_card location_card' id='location_card_5'></div>
@@ -443,15 +478,9 @@ const Table = ({ currentBet = 5 }) => {
 							<div id='card_banker_side' className='card_side'>
 								<span className='side'>BANKER</span>
 								<div className='card_container'>
-									<div className='card' id='card_2'>
-										<img src={`./image/card/${cardArr[1]}.png`} alt='card' />
-									</div>
-									<div className='card' id='card_4'>
-										<img src={`./image/card/${cardArr[3]}.png`} alt='card' />
-									</div>
-									<div className='card' id='card_6'>
-										<img src={`./image/card/${cardArr[0]}.png`} alt='card' />
-									</div>
+									<div className='card' id='card_2'></div>
+									<div className='card' id='card_4'></div>
+									<div className='card' id='card_6'></div>
 									<div className='spawn_card location_card' id='location_card_2'></div>
 									<div className='spawn_card location_card' id='location_card_4'></div>
 									<div className='hit_card location_card' id='location_card_6'></div>
