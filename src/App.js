@@ -6,9 +6,7 @@ function App() {
 	return (
 		<div id='game_container'>
 			<Table />
-			{/* <div id='dashboard'>
-				<Dashboard />
-			</div> */}
+			<Dashboard />
 		</div>
 	);
 }

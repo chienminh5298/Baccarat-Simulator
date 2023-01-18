@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react';
 
-import '../scss/table.scss';
+import 'src/scss/table.scss';
 import chip1 from './image/chip1.png';
 import chip2 from './image/chip2.png';
 import chip3 from './image/chip3.png';
-import { generateCard, checkValue, checkWin } from 'src/helper';
+import { generateCard, checkWin } from 'src/helper';
+import Card from './card';
 
 const Table = ({ currentBet = 5 }) => {
-	var [activeSlot, setActiveSlot] = useState(1);
+	var [activeSlot, setActiveSlot] = useState(3);
 	var [isBetTime, setIsBetTime] = useState(true);
 	var [betTime, setBetTime] = useState(5);
 	var [betArr, setBetArr] = useState(new Array(25).fill(0));
 	var [cardArr, setCardArr] = useState(generateCard());
-	var [result, setResult] = useState(0);
+	var [renderCard, setRenderCard] = useState('');
+
 	function flop(i, animation, extratime = 0) {
 		setTimeout(() => {
 			var location = $(`#location_card_${i}`).position();
@@ -24,116 +26,34 @@ const Table = ({ currentBet = 5 }) => {
 			});
 		}, 500 * i + extratime);
 	}
-	var renderResult = () => {
-		if (result === 0) {
-			return (
-				<div id='result' className='tie'>
-					<span>TIE</span>
-				</div>
-			);
-		} else if (result === -1) {
-			return (
-				<div id='result' className='bankerWin'>
-					<span>BANKER WIN</span>
-				</div>
-			);
-		}
-		return (
-			<div id='result' className='playerWin'>
-				<span>PLAYER WIN</span>
-			</div>
-		);
-	};
 
 	useEffect(() => {
+		var result = checkWin(cardArr.slice(0, 6));
 		var interval = setInterval(() => {
 			if (betTime === 0) {
 				clearInterval(interval);
-				setIsBetTime(false);
 				$('#show_time').toggleClass('d-none');
-				for (var i = 1; i <= 4; i++) {
-					flop(i, 'cardRotate');
-				}
-				/** prevent cheating */
-				$('#card_1').html(`<div class='frontcard'>
-					<img src='./image/card/${cardArr[0]}.png' alt='card' />
-				</div>
-				<div class='backcard'>
-					<img src=./image/card/backcard.png alt='backcard' />
-				</div>`);
-				$('#card_2').html(`<div class='frontcard'>
-				<img src='./image/card/${cardArr[1]}.png' alt='card' />
-			</div>
-			<div class='backcard'>
-				<img src=./image/card/backcard.png alt='backcard' />
-			</div>`);
-				$('#card_3').html(`<div class='frontcard'>
-				<img src='./image/card/${cardArr[2]}.png' alt='card' />
-			</div>
-			<div class='backcard'>
-				<img src=./image/card/backcard.png alt='backcard' />
-			</div>`);
-				$('#card_4').html(`<div class='frontcard'>
-				<img src='./image/card/${cardArr[3]}.png' alt='card' />
-			</div>
-			<div class='backcard'>
-				<img src=./image/card/backcard.png alt='backcard' />
-			</div>`);
-				if ((checkValue(cardArr[0]) + checkValue(cardArr[2])) % 10 >= 6) {
-					$('#card_6').html(`<div class='frontcard'>
-					<img src='./image/card/${cardArr[4]}.png' alt='card' />
-				</div>
-				<div class='backcard'>
-					<img src=./image/card/backcard.png alt='backcard' />
-				</div>`);
-				} else {
-					$('#card_5').html(`<div class='frontcard'>
-					<img src='./image/card/${cardArr[4]}.png' alt='card' />
-				</div>
-				<div class='backcard'>
-					<img src=./image/card/backcard.png alt='backcard' />
-				</div>`);
-					$('#card_6').html(`<div class='frontcard'>
-					<img src='./image/card/${cardArr[5]}.png' alt='card' />
-				</div>
-				<div class='backcard'>
-					<img src=./image/card/backcard.png alt='backcard' />
-				</div>`);
-				}
+				setRenderCard(<Card cardArr={cardArr} result={result} />);
+				setIsBetTime(false);
 
-				var player = (checkValue(cardArr[0]) + checkValue(cardArr[2])) % 10;
-				var banker = (checkValue(cardArr[1]) + checkValue(cardArr[3])) % 10;
-				const player_draw = checkValue(cardArr[4]);
-				const banker_draw = player >= 6 ? checkValue(cardArr[4]) : checkValue(cardArr[5]);
-
-				if (banker < 8 && player < 8) {
-					if (player < 6) flop(5, 'hitcardRotate', 2000);
-					if (banker === 0 || banker === 1 || banker === 2 || (banker === 3 && player_draw !== 8)) flop(6, 'hitcardRotate', 3000);
-					else if (banker === 4) {
-						if (player_draw === 2 || player_draw === 3 || player_draw === 4 || player_draw === 5 || player_draw === 6 || player_draw === 7) flop(6, 'hitcardRotate', 3000);
-					} else if (banker === 5) {
-						if (player_draw === 4 || player_draw === 5 || player_draw === 6 || player_draw === 7) flop(6, 'hitcardRotate', 3000);
-					} else if (banker === 6) {
-						if (player_draw === 6 || player_draw === 7) flop(6, 'hitcardRotate', 3000);
-					}
-					setTimeout(() => {
-						$('#result').css('display', 'block');
-					}, 7500);
-				} else {
-					setTimeout(() => {
-						$('#result').css('display', 'block');
-					}, 4500);
-				}
-
-				setResult(checkWin(cardArr.slice(0, 6)));
-
-				cardArr.splice(0, 6);
-				setCardArr(cardArr);
 				setTimeout(() => {
+					/**No more card => start new table */
+					if (cardArr.length < 10) {
+						setCardArr(generateCard());
+					} else {
+						cardArr.splice(0, 6);
+						setCardArr(cardArr);
+					}
+
 					$('#result').css('display', 'none');
-					$('.card').html('');
 					setBetTime(5);
 					$('#show_time').toggleClass('d-none');
+					setRenderCard('');
+
+					/**clear chip on table when change slot */
+					setBetArr(new Array(25).fill(0));
+					$('.bet_chips').html(`<div className='bet_chips'></div>`);
+					setIsBetTime(true);
 				}, 15000);
 			} else {
 				setBetTime(betTime - 1);
@@ -461,33 +381,7 @@ const Table = ({ currentBet = 5 }) => {
 					<div id='show_time'>
 						<span>{betTime}</span>
 					</div>
-					<div id='card_table_container'>
-						<div id='card_side_container'>
-							{renderResult()}
-							<div id='card_player_side' className='card_side'>
-								<span className='side'>PLAYER</span>
-								<div className='card_container'>
-									<div className='card' id='card_1'></div>
-									<div className='card' id='card_3'></div>
-									<div className='card' id='card_5'></div>
-									<div className='spawn_card location_card' id='location_card_1'></div>
-									<div className='spawn_card location_card' id='location_card_3'></div>
-									<div className='hit_card location_card' id='location_card_5'></div>
-								</div>
-							</div>
-							<div id='card_banker_side' className='card_side'>
-								<span className='side'>BANKER</span>
-								<div className='card_container'>
-									<div className='card' id='card_2'></div>
-									<div className='card' id='card_4'></div>
-									<div className='card' id='card_6'></div>
-									<div className='spawn_card location_card' id='location_card_2'></div>
-									<div className='spawn_card location_card' id='location_card_4'></div>
-									<div className='hit_card location_card' id='location_card_6'></div>
-								</div>
-							</div>
-						</div>
-					</div>
+					<div id='card_table_container'>{renderCard}</div>
 				</div>
 				<div id='choose_slot_container'>
 					<div

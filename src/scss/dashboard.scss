@@ -1,80 +1,134 @@
 @import './App.scss';
 
-#dashboard_container {
-	height: 100%;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-around;
-	align-items: center;
-	.dashboard_item {
-		text-align: center;
-		color: white;
-		font-family: monospace;
-		font-size: 1.5vw;
-		padding: 15px 30px;
-		background: linear-gradient(145deg, $game-background-light, $game-background-dark);
-		border-radius: 15px;
-		box-shadow: 5px 5px 5px $game-background-dark, -5px -5px 5px $game-background-light;
-		@include tablet {
-			width: 33.33%;
-			margin-top: 15px;
-		}
+#dashboard {
+	@include tablet {
+		position: relative;
+		margin-top: 15px;
 	}
-	#chips {
-		margin-top: 5px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		.chip {
-			cursor: pointer;
-			margin: 5px;
-			width: 3.5vw;
-			height: 3.5vw;
-			border: white solid 1px;
-			justify-content: center;
-			align-items: center;
-			display: flex;
-			border-radius: 50%;
-			position: relative;
-			&.active {
-				width: 5.5vw;
-				height: 5.5vw;
-				border: white solid 5px;
-				img {
-					animation: chipRotate 10s linear infinite;
-					@keyframes chipRotate {
-						100% {
-							transform: rotate(360deg);
-						}
-					}
-				}
-				span {
-					font-size: 1.5vw;
-				}
-			}
-			img {
-				width: 100%;
-			}
-			span {
-				position: absolute;
-				font-size: 0.7vw;
-			}
-		}
-	}
-	#history_container {
-		width: 30%;
-		min-height: 20vh;
+	position: absolute;
+	bottom: 5%;
+	transform: translate(-50%, 0);
+	left: 50%;
+	min-height: 20vh;
+	width: 90vw;
+	border-radius: 50px;
+	background-color: green;
+	padding: 2rem;
+	box-sizing: border-box;
+	background: $game-background;
+	box-shadow: inset 8px 8px 0px $game-background-dark, inset -8px -8px 0px $game-background-light;
+	transition: 1s;
+	#dashboard_container {
+		height: 100%;
 		display: flex;
 		flex-wrap: wrap;
-		.history_number {
-			font-size: 1vw;
-			margin: 1px;
+		justify-content: space-around;
+		align-items: center;
+		position: relative;
+		#show_button {
+			position: absolute;
 			width: 2vw;
-			height: 2vw;
+			height: 100%;
+			left: -2vw;
+			transform: translate(-50%, 0);
+			display: flex;
+			align-items: center;
+			cursor: pointer;
+			&:active i {
+				transform: translate(2px, 2px);
+			}
+			i {
+				font-size: 3vw;
+				color: yellow;
+			}
+		}
+		#hide_button {
+			position: absolute;
+			width: 2vw;
+			height: 100%;
+			right: -6vw;
+			transform: translate(-50%, 0);
+			display: flex;
+			align-items: center;
+			cursor: pointer;
+			&:active i {
+				transform: translate(2px, 2px);
+			}
+			i {
+				font-size: 3vw;
+				color: yellow;
+			}
+		}
+		.dashboard_item {
+			text-align: center;
+			color: white;
+			font-family: monospace;
+			font-size: 1.5vw;
+			padding: 15px 30px;
+			background: linear-gradient(145deg, $game-background-light, $game-background-dark);
+			border-radius: 15px;
+			box-shadow: 5px 5px 5px $game-background-dark, -5px -5px 5px $game-background-light;
+			@include tablet {
+				width: 33.33%;
+				margin-top: 15px;
+			}
+		}
+		#chips {
+			margin-top: 5px;
 			display: flex;
 			justify-content: center;
 			align-items: center;
-			border: black solid 1px;
+			.chip {
+				cursor: pointer;
+				margin: 5px;
+				width: 3.5vw;
+				height: 3.5vw;
+				border: white solid 1px;
+				justify-content: center;
+				align-items: center;
+				display: flex;
+				border-radius: 50%;
+				position: relative;
+				&.active {
+					width: 5.5vw;
+					height: 5.5vw;
+					border: white solid 5px;
+					img {
+						animation: chipRotate 10s linear infinite;
+						@keyframes chipRotate {
+							100% {
+								transform: rotate(360deg);
+							}
+						}
+					}
+					span {
+						font-size: 1.5vw;
+					}
+				}
+				img {
+					width: 100%;
+				}
+				span {
+					position: absolute;
+					font-size: 0.7vw;
+				}
+			}
+		}
+		#history_container {
+			width: 30%;
+			min-height: 20vh;
+			display: flex;
+			flex-wrap: wrap;
+			.history_number {
+				font-size: 1vw;
+				margin: 1px;
+				width: 2vw;
+				height: 2vw;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				border: black solid 1px;
+			}
 		}
 	}
 }

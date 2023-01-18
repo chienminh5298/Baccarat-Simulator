@@ -69,132 +69,90 @@
 				height: calc($table-width / 6);
 				padding: 0 2vw;
 				pointer-events: none;
-				#card_side_container {
-					width: 100%;
-					height: 100%;
+				#side_text {
 					display: flex;
 					justify-content: space-around;
-					position: relative;
-					#result {
-						position: absolute;
-						transform: translate(-50%, -50%);
-						top: 70%;
-						left: 50%;
-						padding: 5% 1vw;
-						z-index: 1;
-						text-align: center;
-						display: none;
-						border: yellow solid 3px;
-						span {
-							color: white;
-							font-weight: bold;
-							letter-spacing: 2px;
-							font-size: 1vw;
-						}
-						&.tie {
-							background-color: $table-color;
-						}
-						&.playerWin {
-							background-color: $player-color;
-						}
-						&.bankerWin {
-							background-color: $banker-color;
-						}
-					}
-					.card_side {
-						width: 40%;
-						text-align: center;
-						.side {
-							display: block;
-							font-size: 2.2vw;
-						}
-						.score {
-							margin-top: 6%;
-							font-size: 2vw;
-							color: white;
-						}
-						.card_container {
-							width: 100%;
-							display: flex;
-							justify-content: center;
-							position: relative;
-							margin-top: 0.5vw;
-							margin-bottom: 1vw;
-							perspective: 1000px;
-							.location_card {
-								width: $card-width;
-								height: $card-height;
-								padding: 0 0.2vw;
-								&.hit_card {
-									transform: rotate(90deg);
-									margin-left: 5px;
-								}
-							}
-							@keyframes cardRotate {
-								0% {
-									transform: translate(-50%, 0);
-								}
-								100% {
-									transform: rotate(360deg) rotateY(180deg);
-								}
-							}
-							@keyframes hitcardRotate {
-								0% {
-									transform: rotate(0deg) translate(-50%, 0);
-								}
-								100% {
-									transform: rotate(270deg) rotateY(180deg);
-								}
-							}
-							.card {
-								border-radius: 5px;
-								width: $card-width;
-								height: $card-height;
-								position: absolute;
-								transform: translate(-50%, 0);
-								z-index: 5;
-								transform-style: preserve-3d;
-								@keyframes flipCard {
-									100% {
-										transform: translate(-50%, 0) rotateY(180deg);
-									}
-								}
-								.backcard {
-									position: absolute;
-									img {
-										width: 100%;
-										backface-visibility: hidden;
-									}
-								}
-								.frontcard {
-									position: absolute;
-									transform: rotateY(180deg);
-									img {
-										width: 100%;
-										backface-visibility: hidden;
-									}
-								}
-							}
-						}
-					}
-
-					#card_player_side {
-						.side {
+					width: 100%;
+					span {
+						font-family: Verdana, Geneva, Tahoma, sans-serif;
+						font-size: 2.2vw;
+						&:nth-child(1) {
 							color: $player-color;
 						}
-						.card {
-							top: 270%;
-							left: 110%;
-						}
-					}
-					#card_banker_side {
-						.side {
+						&:nth-child(2) {
 							color: $banker-color;
 						}
-						.card {
-							top: 270%;
-							left: -15%;
+					}
+				}
+				#card_container {
+					width: 100%;
+					min-height: 20%;
+					position: relative;
+					.card {
+						width: 1.8vw;
+						position: absolute;
+						border-radius: 5px;
+						overflow: hidden;
+						img {
+							width: 100%;
 						}
+						.card_flip {
+							transform-style: preserve-3d;
+							position: relative;
+							width: 100%;
+							height: 50px;
+							@keyframes flip {
+								100% {
+									transform: rotateY(180deg);
+								}
+							}
+							.back {
+								position: absolute;
+								backface-visibility: hidden;
+								-webkit-backface-visibility: hidden;
+							}
+							.front {
+								position: absolute;
+								backface-visibility: hidden;
+								-webkit-backface-visibility: hidden;
+								transform: rotateY(180deg);
+								z-index: 1;
+							}
+						}
+						&.player_card {
+							top: 180%;
+							left: 45%;
+						}
+						&.banker_card {
+							top: 180%;
+							right: 47%;
+						}
+					}
+				}
+				#result {
+					position: absolute;
+					transform: translate(-50%, -50%);
+					top: 80%;
+					left: 50%;
+					padding: 5% 1vw;
+					z-index: 1;
+					text-align: center;
+					display: none;
+					border: yellow solid 3px;
+					span {
+						color: white;
+						font-weight: bold;
+						letter-spacing: 2px;
+						font-size: 1vw;
+					}
+					&.tie {
+						background-color: $table-color;
+					}
+					&.playerWin {
+						background-color: $player-color;
+					}
+					&.bankerWin {
+						background-color: $banker-color;
 					}
 				}
 			}
