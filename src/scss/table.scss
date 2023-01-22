@@ -6,6 +6,14 @@
 	span {
 		font-family: Verdana, Geneva, Tahoma, sans-serif;
 	}
+	.won_effect {
+		animation: won_effect 1s linear infinite;
+		@keyframes won_effect {
+			50% {
+				background-color: rgba(255, 255, 0, 0.541);
+			}
+		}
+	}
 	#player_slot_container {
 		position: relative;
 		width: calc($table-width);
@@ -134,11 +142,14 @@
 					transform: translate(-50%, -50%);
 					top: 80%;
 					left: 50%;
-					padding: 5% 1vw;
+					padding: 0.5vw 1vw;
 					z-index: 1;
 					text-align: center;
 					display: none;
 					border: yellow solid 3px;
+					@include tablet {
+						top: 90%;
+					}
 					span {
 						color: white;
 						font-weight: bold;
@@ -313,7 +324,6 @@
 					}
 				}
 				.play_banker {
-					border-radius: 100%;
 					width: 85%;
 					border-bottom: rgba(255, 255, 255, 0.096) solid 1px;
 					color: $banker-color;

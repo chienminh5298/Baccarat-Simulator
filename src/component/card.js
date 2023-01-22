@@ -1,12 +1,13 @@
 import React, { useState, Fragment, useEffect } from 'react';
 
 import { checkValue, checkWin } from 'src/helper';
-const Card = ({ cardArr, result }) => {
+const Card = ({ cardArr, result, handlePayout }) => {
 	var [render_banker_draw_card, setRender_banker_draw_card] = useState(cardArr[4]);
 
 	function show_result(time) {
 		setTimeout(() => {
 			$('#result').css('display', 'block');
+			handlePayout(result);
 		}, time);
 	}
 	function banker_draw_flip(isPlayerDraw) {
@@ -180,25 +181,40 @@ const Card = ({ cardArr, result }) => {
 		}, 3500);
 	}, []);
 	var renderResult = () => {
-		console.log(result);
-		if (result === 0 || result === 1 || result === 2 || result === 3) {
-			return (
-				<div id='result' className='tie'>
-					<span>TIE</span>
-				</div>
-			);
-		} else if (result === 4 || result === 5 || result === 6 || result === 7) {
-			return (
-				<div id='result' className='bankerWin'>
-					<span>BANKER WIN</span>
-				</div>
-			);
+		switch (result) {
+			case 0:
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+			case 5:
+			case 6:
+			case 7:
+				return (
+					<div id='result' className='tie'>
+						<span>TIE</span>
+					</div>
+				);
+			case 8:
+			case 9:
+			case 10:
+			case 11:
+			case 12:
+			case 13:
+			case 14:
+			case 15:
+				return (
+					<div id='result' className='bankerWin'>
+						<span>BANKER WIN</span>
+					</div>
+				);
+			default:
+				return (
+					<div id='result' className='playerWin'>
+						<span>PLAYER WIN</span>
+					</div>
+				);
 		}
-		return (
-			<div id='result' className='playerWin'>
-				<span>PLAYER WIN</span>
-			</div>
-		);
 	};
 	return (
 		<Fragment>

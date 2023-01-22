@@ -5,26 +5,7 @@ import chip1 from './image/chip1.png';
 import chip2 from './image/chip2.png';
 import chip3 from './image/chip3.png';
 
-const Dashboard = ({ winningNumber, setBet, credit }) => {
-	var [history, setHistory] = useState([]);
-	var [isShow, setIsShow] = useState(true);
-
-	useEffect(() => {
-		if (winningNumber) {
-			let temp = [...history];
-			temp.unshift(winningNumber);
-			setHistory(temp);
-		}
-	}, [winningNumber]);
-
-	var renderHistory = history.slice(0, 44).map((number, index) => {
-		return (
-			<div className={`history_number ${number.color}`} key={index}>
-				<span>{number.number}</span>
-			</div>
-		);
-	});
-
+const Dashboard = ({ setBet, credit, setCredit }) => {
 	function hide_dashboard() {
 		$('#dashboard').css({
 			left: '140%',
@@ -55,7 +36,7 @@ const Dashboard = ({ winningNumber, setBet, credit }) => {
 					<i className='fa-solid fa-caret-right'></i>
 				</div>
 				<div id='credit_container' className='dashboard_item'>
-					Credit: <span>1000$</span>
+					Credit: <span>{credit}$</span>
 				</div>
 				<div id='won_container' className='dashboard_item'>
 					Win: <span>0$</span>
@@ -94,9 +75,6 @@ const Dashboard = ({ winningNumber, setBet, credit }) => {
 							<span>100</span>
 						</div>
 					</div>
-				</div>
-				<div id='history_container' className='dashboard_item'>
-					{renderHistory}
 				</div>
 			</div>
 		</div>

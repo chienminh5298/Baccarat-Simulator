@@ -4,16 +4,17 @@ import 'src/scss/table.scss';
 import chip1 from './image/chip1.png';
 import chip2 from './image/chip2.png';
 import chip3 from './image/chip3.png';
-import { generateCard, checkWin } from 'src/helper';
+import { generateCard, checkWin, generateHistory, payout } from 'src/helper';
 import Card from './card';
 
-const Table = ({ currentBet = 5 }) => {
+const Table = ({ currentBet, getResult, setHistory, credit, setCredit, setResultCol, setCountBanker, setCountPlayer, setCountTie }) => {
 	var [activeSlot, setActiveSlot] = useState(3);
 	var [isBetTime, setIsBetTime] = useState(true);
-	var [betTime, setBetTime] = useState(5);
+	var [betTime, setBetTime] = useState(10);
 	var [betArr, setBetArr] = useState(new Array(25).fill(0));
 	var [cardArr, setCardArr] = useState(generateCard());
 	var [renderCard, setRenderCard] = useState('');
+	var [roundBet, setRoundBet] = useState(0);
 
 	function flop(i, animation, extratime = 0) {
 		setTimeout(() => {
@@ -27,26 +28,39 @@ const Table = ({ currentBet = 5 }) => {
 		}, 500 * i + extratime);
 	}
 
+	function handlePayout(result) {
+		let won = payout(betArr, result, activeSlot);
+		setCredit(credit + won);
+		$('#won_container span').html(`${won}$`);
+	}
+
 	useEffect(() => {
 		var result = checkWin(cardArr.slice(0, 6));
 		var interval = setInterval(() => {
 			if (betTime === 0) {
 				clearInterval(interval);
 				$('#show_time').toggleClass('d-none');
-				setRenderCard(<Card cardArr={cardArr} result={result} />);
+				setRenderCard(<Card cardArr={cardArr} result={result} handlePayout={handlePayout} />);
 				setIsBetTime(false);
 
 				setTimeout(() => {
 					/**No more card => start new table */
-					if (cardArr.length < 10) {
+					if (cardArr.length < 28) {
 						setCardArr(generateCard());
+						setHistory(generateHistory());
+						setResultCol([0, -1]);
+						setCountBanker(0);
+						setCountPlayer(0);
+						setCountTie(0);
+						getResult();
 					} else {
 						cardArr.splice(0, 6);
 						setCardArr(cardArr);
+						getResult(result);
 					}
 
 					$('#result').css('display', 'none');
-					setBetTime(5);
+					setBetTime(10);
 					$('#show_time').toggleClass('d-none');
 					setRenderCard('');
 
@@ -54,6 +68,8 @@ const Table = ({ currentBet = 5 }) => {
 					setBetArr(new Array(25).fill(0));
 					$('.bet_chips').html(`<div className='bet_chips'></div>`);
 					setIsBetTime(true);
+					$('#won_container span').html('0$');
+					$('div[location]').removeClass('won_effect');
 				}, 15000);
 			} else {
 				setBetTime(betTime - 1);
@@ -72,15 +88,19 @@ const Table = ({ currentBet = 5 }) => {
 			$(`.player_slot:nth-child(${activeSlot})`).addClass('active');
 			/**clear chip on table when change slot */
 			setBetArr(new Array(25).fill(0));
+			setCredit(credit + roundBet);
+			setRoundBet(0);
 			$('.bet_chips').html(`<div className='bet_chips'></div>`);
 		}
 	}, [activeSlot]);
 
 	function handleBetChip(slot, location) {
-		if (activeSlot === slot && isBetTime) {
+		if (activeSlot === slot && isBetTime && credit >= currentBet) {
+			setRoundBet(roundBet + currentBet);
+			setCredit(credit - currentBet);
 			let chipPath = chip1;
 			let temp = betArr[location] + currentBet;
-			if (temp > 5 && temp < 100) chipPath = chip2;
+			if (temp >= 10 && temp < 100) chipPath = chip2;
 			else if (temp >= 100) chipPath = chip3;
 
 			$(`.play_container div[location=${location}] .bet_chips`).html(`<img src='${chipPath}' alt='bet chip' />

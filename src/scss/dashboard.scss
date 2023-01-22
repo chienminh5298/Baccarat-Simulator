@@ -2,8 +2,7 @@
 
 #dashboard {
 	@include tablet {
-		position: relative;
-		margin-top: 15px;
+		bottom: 1vw;
 	}
 	position: absolute;
 	bottom: 5%;
@@ -112,22 +111,6 @@
 					position: absolute;
 					font-size: 0.7vw;
 				}
-			}
-		}
-		#history_container {
-			width: 30%;
-			min-height: 20vh;
-			display: flex;
-			flex-wrap: wrap;
-			.history_number {
-				font-size: 1vw;
-				margin: 1px;
-				width: 2vw;
-				height: 2vw;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				border: black solid 1px;
 			}
 		}
 	}
