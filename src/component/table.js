@@ -10,7 +10,7 @@ import Card from './card';
 const Table = ({ currentBet, getResult, setHistory, credit, setCredit, setResultCol, setCountBanker, setCountPlayer, setCountTie }) => {
 	var [activeSlot, setActiveSlot] = useState(3);
 	var [isBetTime, setIsBetTime] = useState(true);
-	var [betTime, setBetTime] = useState(5);
+	var [betTime, setBetTime] = useState(10);
 	var [betArr, setBetArr] = useState(new Array(25).fill(0));
 	var [cardArr, setCardArr] = useState(generateCard());
 	var [renderCard, setRenderCard] = useState('');
@@ -60,7 +60,7 @@ const Table = ({ currentBet, getResult, setHistory, credit, setCredit, setResult
 					}
 
 					$('#result').css('display', 'none');
-					setBetTime(5);
+					setBetTime(10);
 					$('.onActive').css('pointer-events', 'auto');
 					$('#show_time').toggleClass('d-none');
 					setRenderCard('');
