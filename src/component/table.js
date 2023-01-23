@@ -10,12 +10,11 @@ import Card from './card';
 const Table = ({ currentBet, getResult, setHistory, credit, setCredit, setResultCol, setCountBanker, setCountPlayer, setCountTie }) => {
 	var [activeSlot, setActiveSlot] = useState(3);
 	var [isBetTime, setIsBetTime] = useState(true);
-	var [betTime, setBetTime] = useState(10);
+	var [betTime, setBetTime] = useState(5);
 	var [betArr, setBetArr] = useState(new Array(25).fill(0));
 	var [cardArr, setCardArr] = useState(generateCard());
 	var [renderCard, setRenderCard] = useState('');
 	var [roundBet, setRoundBet] = useState(0);
-
 	function flop(i, animation, extratime = 0) {
 		setTimeout(() => {
 			var location = $(`#location_card_${i}`).position();
@@ -29,7 +28,7 @@ const Table = ({ currentBet, getResult, setHistory, credit, setCredit, setResult
 	}
 
 	function handlePayout(result) {
-		let won = payout(betArr, result, activeSlot);
+		let won = payout(betArr, result);
 		setCredit(credit + won);
 		$('#won_container span').html(`${won}$`);
 	}
@@ -37,10 +36,13 @@ const Table = ({ currentBet, getResult, setHistory, credit, setCredit, setResult
 	useEffect(() => {
 		var result = checkWin(cardArr.slice(0, 6));
 		var interval = setInterval(() => {
+			if (betTime === 1) {
+				$('.onActive').css('pointer-events', 'none'); // Disable bet when time = 1
+			}
 			if (betTime === 0) {
 				clearInterval(interval);
 				$('#show_time').toggleClass('d-none');
-				setRenderCard(<Card cardArr={cardArr} result={result} handlePayout={handlePayout} />);
+				setRenderCard(<Card cardArr={cardArr} result={result} handlePayout={handlePayout} setCardArr={setCardArr} />);
 				setIsBetTime(false);
 
 				setTimeout(() => {
@@ -54,13 +56,12 @@ const Table = ({ currentBet, getResult, setHistory, credit, setCredit, setResult
 						setCountTie(0);
 						getResult();
 					} else {
-						cardArr.splice(0, 6);
-						setCardArr(cardArr);
 						getResult(result);
 					}
 
 					$('#result').css('display', 'none');
-					setBetTime(10);
+					setBetTime(5);
+					$('.onActive').css('pointer-events', 'auto');
 					$('#show_time').toggleClass('d-none');
 					setRenderCard('');
 

@@ -127,13 +127,10 @@
 								z-index: 1;
 							}
 						}
-						&.player_card {
-							top: 180%;
-							left: 45%;
-						}
+						&.player_card,
 						&.banker_card {
 							top: 180%;
-							right: 47%;
+							left: 45%;
 						}
 					}
 				}

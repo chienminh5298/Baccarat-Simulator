@@ -27,7 +27,6 @@ function App() {
 
 	function handleHistory(col, row, res) {
 		var temp = [...history];
-		console.log(temp);
 		temp[col][row] = res;
 		setHistory(temp);
 	}

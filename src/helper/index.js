@@ -78,7 +78,7 @@ export const checkValue = (num) => {
 	}
 };
 
-export const payout = (arr, result, slot) => {
+export const payout = (arr, result) => {
 	var isBankerWin = false;
 	var isPlayerWin = false;
 	var isTie = false;
@@ -90,6 +90,8 @@ export const payout = (arr, result, slot) => {
 	if (result === 16 || result === 17 || result === 18 || result === 19 || result === 20 || result === 21 || result === 22 || result === 23) isPlayerWin = true;
 	if (result === 1 || result === 3 || result === 6 || result === 7 || result === 9 || result === 11 || result === 13 || result === 15 || result === 17 || result === 19 || result === 21 || result === 23) isBankerPair = true;
 	if (result === 2 || result === 3 || result === 5 || result === 7 || result === 10 || result === 11 || result === 14 || result === 15 || result === 18 || result === 19 || result === 22 || result === 23) isPlayerPair = true;
+
+	console.log(isBankerWin, isPlayerWin, isTie, isBankerPair, isPlayerPair, arr, result);
 
 	var total = 0;
 	for (let i = 0; i < arr.length; i++) {
