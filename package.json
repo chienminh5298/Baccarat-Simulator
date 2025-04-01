@@ -15,7 +15,9 @@
   },
   "scripts": {
     "start": "webpack serve",
-    "build": "webpack",
+    "build": "react-scripts build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -41,11 +43,13 @@
     "babel-loader": "^9.1.2",
     "css-loader": "^6.7.3",
     "file-loader": "^6.2.0",
+    "gh-pages": "^6.3.0",
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.7.2",
     "sass": "^1.57.1",
     "sass-loader": "^13.2.0",
     "web-pack": "^1.0.0",
     "webpack-cli": "^5.0.1"
-  }
+  },
+  "homepage": "https://chienminh5298.github.io/baccarat-simulator"
 }
