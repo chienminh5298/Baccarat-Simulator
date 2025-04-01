@@ -1,6 +1,7 @@
 import React, { useState, Fragment, useEffect } from 'react';
-
+import $ from "jquery";
 import { checkValue, checkWin } from '../helper';
+
 const Card = ({ cardArr, result, handlePayout, setCardArr }) => {
 	let tempCardArr = [...cardArr];
 	function show_result() {

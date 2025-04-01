@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-
+import $ from "jquery";
 import '../scss/analyze.scss';
 import payout from '../component/image/payout.png';
 
