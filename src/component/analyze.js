@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import $ from "jquery";
-import '../scss/analyze.scss';
-import payout from '../component/image/payout.png';
+import './analyze.scss';
+import payout from './image/payout.png';
 
 const Analyze = ({ history, countPlayer, countBanker, countTie }) => {
 	function hide_dashboard() {

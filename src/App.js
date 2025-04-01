@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import './scss/App.scss';
+import './App.scss';
 import Table from './component/table';
 import Dashboard from './component/dashboard';
 import Analyze from './component/analyze';
