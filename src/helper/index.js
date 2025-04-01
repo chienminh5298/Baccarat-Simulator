@@ -1,3 +1,5 @@
+import $ from "jquery";
+
 function shuffle(array) {
 	let currentIndex = array.length,
 		randomIndex;
