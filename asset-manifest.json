@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/baccarat-simulator/static/css/main.fb9a9cad.css",
-    "main.js": "/baccarat-simulator/static/js/main.dc23be2b.js",
-    "static/js/651.eeab8f5d.chunk.js": "/baccarat-simulator/static/js/651.eeab8f5d.chunk.js",
-    "static/media/payout.png": "/baccarat-simulator/static/media/payout.cdfbb66516ae2e4d95a0.png",
-    "static/media/chip1.png": "/baccarat-simulator/static/media/chip1.a2a5326aef0a7e6c92de.png",
-    "static/media/chip3.png": "/baccarat-simulator/static/media/chip3.a7d960b0e0cb909ca701.png",
-    "static/media/chip2.png": "/baccarat-simulator/static/media/chip2.a12f97373daca5a8c050.png",
-    "index.html": "/baccarat-simulator/index.html",
-    "main.fb9a9cad.css.map": "/baccarat-simulator/static/css/main.fb9a9cad.css.map",
-    "main.dc23be2b.js.map": "/baccarat-simulator/static/js/main.dc23be2b.js.map",
-    "651.eeab8f5d.chunk.js.map": "/baccarat-simulator/static/js/651.eeab8f5d.chunk.js.map"
+    "main.css": "/Baccarat-Simulator/static/css/main.fb9a9cad.css",
+    "main.js": "/Baccarat-Simulator/static/js/main.82c88f91.js",
+    "static/js/651.eeab8f5d.chunk.js": "/Baccarat-Simulator/static/js/651.eeab8f5d.chunk.js",
+    "static/media/payout.png": "/Baccarat-Simulator/static/media/payout.cdfbb66516ae2e4d95a0.png",
+    "static/media/chip1.png": "/Baccarat-Simulator/static/media/chip1.a2a5326aef0a7e6c92de.png",
+    "static/media/chip3.png": "/Baccarat-Simulator/static/media/chip3.a7d960b0e0cb909ca701.png",
+    "static/media/chip2.png": "/Baccarat-Simulator/static/media/chip2.a12f97373daca5a8c050.png",
+    "index.html": "/Baccarat-Simulator/index.html",
+    "main.fb9a9cad.css.map": "/Baccarat-Simulator/static/css/main.fb9a9cad.css.map",
+    "main.82c88f91.js.map": "/Baccarat-Simulator/static/js/main.82c88f91.js.map",
+    "651.eeab8f5d.chunk.js.map": "/Baccarat-Simulator/static/js/651.eeab8f5d.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.fb9a9cad.css",
-    "static/js/main.dc23be2b.js"
+    "static/js/main.82c88f91.js"
   ]
 }
