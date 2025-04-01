@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 
-import 'src/scss/analyze.scss';
-import payout from 'src/component/image/payout.png';
+import '../scss/analyze.scss';
+import payout from '../component/image/payout.png';
 
 const Analyze = ({ history, countPlayer, countBanker, countTie }) => {
 	function hide_dashboard() {

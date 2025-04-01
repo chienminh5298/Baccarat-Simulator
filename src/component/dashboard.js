@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import "src/scss/dashboard.scss";
+import "../scss/dashboard.scss";
 import chip1 from "./image/chip1.png";
 import chip2 from "./image/chip2.png";
 import chip3 from "./image/chip3.png";

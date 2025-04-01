@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
-import 'src/scss/table.scss';
+import '../scss/table.scss';
 import chip1 from './image/chip1.png';
 import chip2 from './image/chip2.png';
 import chip3 from './image/chip3.png';
-import { generateCard, checkWin, generateHistory, payout } from 'src/helper';
+import { generateCard, checkWin, generateHistory, payout } from '../helper';
 import Card from './card';
 
 const Table = ({ currentBet, getResult, setHistory, credit, setCredit, setResultCol, setCountBanker, setCountPlayer, setCountTie }) => {

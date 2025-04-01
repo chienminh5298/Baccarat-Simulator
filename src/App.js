@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 
-import 'src/scss/App.scss';
-import Table from 'src/component/table';
-import Dashboard from 'src/component/dashboard';
-import Analyze from 'src/component/analyze';
-import { generateHistory } from 'src/helper';
+import './scss/App.scss';
+import Table from './component/table';
+import Dashboard from './component/dashboard';
+import Analyze from './component/analyze';
+import { generateHistory } from './helper';
 
 function App() {
 	var [result, setResult] = useState();
